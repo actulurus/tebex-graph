@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tebex Graph</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <h1 id="title">Tebex Graph</h1>
+    <form action="/submit" method="POST">
+        <textarea id="json-input" name="jsondata" rows="10" cols="50"></textarea>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        // Get the form element
+        const form = document.querySelector('form');
+
+        // Add a submit event listener to the form
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault(); // Prevent the form from submitting normally
+
+            // Send the form data to the server
+            const response = await fetch('/submit', {
+                method: 'POST',
+                body: new FormData(form)
+            });
+
+            // Parse the JSON response
+            const data = await response.json();
+
+            // Redirect to the path returned by the server
+            window.location.href = data.path;
+        });
+    </script>
+</body>
+</html>
